@@ -1,2 +1,1 @@
-print("Hello World")
-print("Hello World Again")
+print("This is the dev version")
