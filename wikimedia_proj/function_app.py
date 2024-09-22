@@ -8,7 +8,7 @@ import random
 
 
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
-
+# THis function fails only when the is file name collision which as of now I dont see value in fixing it.
 @app.route(route="wikimedia_rc")
 @app.function_name("wikimedia_rc")
 def wikimedia_rc(req: func.HttpRequest) -> func.HttpResponse:
@@ -32,5 +32,6 @@ def wikimedia_rc(req: func.HttpRequest) -> func.HttpResponse:
                     content = flatlines.to_json(orient="records", lines=True, index= False)
                     blob_client = service_client.get_blob_client(container = "myfiles",blob = file_name)
                     blob_client.upload_blob(content)
+                    logging.info(f'{file_name} :Python HTTP trigger function processed a request.')
                     
-    return func.HttpResponse
+    return func.HttpResponse("Function executed successfully")
